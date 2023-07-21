@@ -92,4 +92,19 @@ const transporter = nodemailer.createTransport({
 // create a function to send the email
 function sendEmail(to, subject, message) {
     // set the mail options
-    const
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: to,
+        subject: subject,
+        text: message
+    };
+
+    // send the email
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent:' + info.response);
+        }
+    });
+}
